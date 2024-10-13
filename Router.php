@@ -34,6 +34,13 @@ class Router
         $this->registerRoute('DELETE', $uri, $controller);
     }
 
+    public function error(int $httpCode): void
+    {
+        http_response_code($httpCode);
+        loadView('error/' . $httpCode);
+        exit;
+    }
+
     public function route(string $uri, string $method): void
     {
         foreach ($this->routes as $route) {
@@ -42,8 +49,6 @@ class Router
                 return;
             }
         }
-        http_response_code(404);
-        loadView('error/404');
-        exit;
+        $this->error(404);
     }
 }
