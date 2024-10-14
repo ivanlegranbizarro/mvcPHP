@@ -5,10 +5,11 @@ function basePath(string $path): string
     return __DIR__ . '/' . $path;
 }
 
-function loadView(string $name): void
+function loadView(string $name, array $data = []): void
 {
     $viewPath = basePath("views/$name.view.php");
     if (file_exists($viewPath)) {
+        extract($data);
         require $viewPath;
     } else {
         echo "View not found: $viewPath";
@@ -40,4 +41,9 @@ function inspectAndDie(mixed $value): void
     var_dump($value);
     echo '</pre>';
     die();
+}
+
+function formatSalary(string $salary): string
+{
+    return number_format($salary, 0, '.', '.');
 }
