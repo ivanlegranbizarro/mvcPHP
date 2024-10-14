@@ -2,7 +2,6 @@
 
 require_once '../helpers.php';
 
-
 require_once basePath('Router.php');
 
 $router = new Router();
