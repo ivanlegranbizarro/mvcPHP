@@ -20,10 +20,13 @@ class Database
         }
     }
 
-    public function query(string $query): PDOStatement|PDOException
+    public function query(string $query, array $params = []): PDOStatement|PDOException
     {
         try {
             $statement = $this->conn->prepare($query);
+            foreach ($params as $param => $value) {
+                $statement->bindValue(':' . $param, $value);
+            }
             $statement->execute();
             return $statement;
         } catch (PDOException $e) {
